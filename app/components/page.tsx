@@ -22,7 +22,7 @@ const components = [
     documentation: "https://www.radix-ui.com/themes/docs/components/button",
     storybook: "https://stories.procore.com/button",
     figma: "https://figma.com/procore-button",
-    github: "https://github.com/procore/design-system/button",
+    github: "https://github.com/radix-ui/themes/blob/main/packages/radix-ui-themes/src/components/button.tsx",
     lastUpdated: "2024-01-15",
     usage: "High",
   },
