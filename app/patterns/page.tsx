@@ -7,54 +7,74 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import Link from "next/link"
-import { ArrowRight, Layout, Database, Navigation as NavigationIcon, MessageSquare, Puzzle, Search, ArrowUpDown } from "lucide-react"
+import { ArrowRight, Layout, Database, Navigation as NavigationIcon, MessageSquare, Puzzle, Search, ArrowUpDown, Tag, Users, Clock, Github, Figma, BookOpen, FileText } from "lucide-react"
 import { useState, useMemo } from "react"
 
 const patterns = [
   {
     name: "Form Layouts",
     description: "Consistent form patterns and layout guidelines for various use cases",
-    icon: Layout,
-    href: "/patterns/form-layouts",
-    status: "Stable",
+    type: "pattern",
+    lifecycle: "Stable",
+    category: "Forms",
     owner: "Design Systems Team",
     lastUpdated: "2024-01-15",
+    usage: "High",
+    documentation: "https://confluence.procore.com/form-layouts",
+    storybook: "https://stories.procore.com/form-layouts",
+    figma: "https://figma.com/procore-form-layouts",
+    github: "https://github.com/procore/design-system/form-layouts",
     examples: ["Registration forms", "Multi-step wizards", "Inline editing"]
   },
   {
     name: "Data Display",
     description: "Patterns for presenting and organizing complex data sets",
-    icon: Database,
-    href: "/patterns/data-display",
-    status: "Stable",
+    type: "pattern",
+    lifecycle: "Stable",
+    category: "Data Display",
     owner: "Platform Team",
     lastUpdated: "2024-01-12",
+    usage: "High",
+    documentation: "https://confluence.procore.com/data-display",
+    storybook: "https://stories.procore.com/data-display",
+    figma: "https://figma.com/procore-data-display",
+    github: "https://github.com/procore/design-system/data-display",
     examples: ["Tables", "Cards", "Lists", "Dashboards"]
   },
   {
     name: "Navigation",
     description: "Navigation patterns for different application types and contexts",
-    icon: NavigationIcon,
-    href: "/patterns/navigation",
-    status: "Beta",
+    type: "pattern",
+    lifecycle: "Beta",
+    category: "Navigation",
     owner: "UX Research Team",
     lastUpdated: "2023-12-20",
+    usage: "Medium",
+    documentation: "https://confluence.procore.com/navigation",
+    storybook: "https://stories.procore.com/navigation",
+    figma: "https://figma.com/procore-navigation",
+    github: "https://github.com/procore/design-system/navigation",
     examples: ["Primary nav", "Breadcrumbs", "Pagination", "Tabs"]
   },
   {
     name: "Feedback",
     description: "User feedback patterns including notifications, alerts, and confirmations",
-    icon: MessageSquare,
-    href: "/patterns/feedback",
-    status: "Experimental",
+    type: "pattern",
+    lifecycle: "Experimental",
+    category: "Feedback",
     owner: "Design Systems Team",
     lastUpdated: "2024-01-08",
+    usage: "Growing",
+    documentation: "https://confluence.procore.com/feedback",
+    storybook: "https://stories.procore.com/feedback",
+    figma: "https://figma.com/procore-feedback", 
+    github: "https://github.com/procore/design-system/feedback",
     examples: ["Toast notifications", "Error states", "Loading states"]
   }
 ]
 
-const getStatusColor = (status: string) => {
-  switch (status) {
+const getLifecycleColor = (lifecycle: string) => {
+  switch (lifecycle) {
     case "Stable":
       return "bg-green-100 text-green-800"
     case "Beta":
@@ -70,29 +90,39 @@ const getStatusColor = (status: string) => {
 
 export default function PatternsPage() {
   const [searchTerm, setSearchTerm] = useState("")
-  const [statusFilter, setStatusFilter] = useState("all")
+  const [categoryFilter, setCategoryFilter] = useState("all")
+  const [lifecycleFilter, setLifecycleFilter] = useState("all")
   const [ownerFilter, setOwnerFilter] = useState("all")
   const [sortBy, setSortBy] = useState("name-asc")
 
-  // Extract unique values for filter options
+  // Get unique values for filter options
+  const uniqueCategories = useMemo(() => {
+    const categories = [...new Set(patterns.map(p => p.category))]
+    return categories.sort()
+  }, [])
+
+  const uniqueLifecycles = useMemo(() => {
+    const lifecycles = [...new Set(patterns.map(p => p.lifecycle))]
+    return lifecycles.sort()
+  }, [])
+
   const uniqueOwners = useMemo(() => {
-    return Array.from(new Set(patterns.map(pattern => pattern.owner))).sort()
+    const owners = [...new Set(patterns.map(p => p.owner))]
+    return owners.sort()
   }, [])
 
   const filteredPatterns = useMemo(() => {
     const filtered = patterns.filter((pattern) => {
       const matchesSearch = pattern.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          pattern.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          pattern.owner.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          pattern.examples.some(example => example.toLowerCase().includes(searchTerm.toLowerCase()))
+                          pattern.description.toLowerCase().includes(searchTerm.toLowerCase())
       
-      const matchesStatus = statusFilter === "all" || pattern.status === statusFilter
+      const matchesCategory = categoryFilter === "all" || pattern.category === categoryFilter
+      const matchesLifecycle = lifecycleFilter === "all" || pattern.lifecycle === lifecycleFilter
       const matchesOwner = ownerFilter === "all" || pattern.owner === ownerFilter
       
-      return matchesSearch && matchesStatus && matchesOwner
+      return matchesSearch && matchesCategory && matchesLifecycle && matchesOwner
     })
 
-    // Apply sorting
     return filtered.sort((a, b) => {
       switch (sortBy) {
         case "name-asc":
@@ -101,25 +131,40 @@ export default function PatternsPage() {
           return b.name.localeCompare(a.name)
         case "updated-desc":
           return new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime()
-        case "updated-asc":
-          return new Date(a.lastUpdated).getTime() - new Date(b.lastUpdated).getTime()
+        case "usage-desc":
+          // Sort by usage level
+          const getUsageRank = (pattern: any) => {
+            if (!pattern.usage) return 0
+            switch (pattern.usage.toLowerCase()) {
+              case "high": return 4
+              case "growing": return 3
+              case "medium": return 2
+              case "low": return 1
+              default: return 0
+            }
+          }
+          const rankA = getUsageRank(a)
+          const rankB = getUsageRank(b)
+          if (rankA !== rankB) return rankB - rankA
+          return a.name.localeCompare(b.name) // Secondary sort by name
         default:
           return a.name.localeCompare(b.name)
       }
     })
-  }, [searchTerm, statusFilter, ownerFilter, sortBy])
+  }, [searchTerm, categoryFilter, lifecycleFilter, ownerFilter, sortBy])
 
   return (
     <LayoutWrapper>
       <div className="space-y-8">
+        {/* Header */}
         <div className="px-6">
           <h1 className="text-3xl font-bold text-gray-900 mb-4">Patterns</h1>
           <p className="text-lg text-gray-600">
-            Reusable design patterns that solve common interface problems. These patterns provide consistent 
-            solutions for complex user interactions and help maintain design system coherence across applications.
+            Reusable design patterns that solve common interface problems and help maintain design system coherence across applications.
           </p>
         </div>
 
+        {/* Banner */}
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mx-6">
           <h3 className="font-semibold text-blue-900 mb-2">Need a New Pattern?</h3>
           <div className="flex items-start justify-between gap-6">
@@ -133,37 +178,77 @@ export default function PatternsPage() {
           </div>
         </div>
 
+        {/* Stats */}
+        <div className="px-6">
+          <div className="grid grid-cols-3 gap-4 mb-6">
+            <div className="bg-blue-50 p-4 rounded-lg text-center">
+              <div className="text-2xl font-bold text-blue-600">{patterns.length}</div>
+              <div className="text-sm text-blue-600">Total Patterns</div>
+            </div>
+            <div className="bg-purple-50 p-4 rounded-lg text-center">
+              <div className="text-2xl font-bold text-purple-600">{patterns.filter(p => p.lifecycle === "Stable").length}</div>
+              <div className="text-sm text-purple-600">Stable Patterns</div>
+            </div>
+            <div className="bg-green-50 p-4 rounded-lg text-center">
+              <div className="text-2xl font-bold text-green-600">{filteredPatterns.length}</div>
+              <div className="text-sm text-green-600">Total Showing</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Search and Filters */}
         <div className="px-6 space-y-4">
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="relative flex-1">
+          <div className="flex flex-col lg:flex-row gap-4">
+            {/* Search */}
+            <div className="relative w-full lg:w-80">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               <Input
-                placeholder="Search patterns"
+                placeholder="Search patterns..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10"
               />
             </div>
-            <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-full sm:w-48">
-                <SelectValue placeholder="Filter by status" />
+            
+            {/* Filters */}
+            <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+              <SelectTrigger className="w-full lg:w-40">
+                <SelectValue placeholder="Category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Categories</SelectItem>
+                {uniqueCategories.map((category) => (
+                  <SelectItem key={category} value={category}>
+                    {category}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            
+            <Select value={lifecycleFilter} onValueChange={setLifecycleFilter}>
+              <SelectTrigger className="w-full lg:w-36">
+                <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Status</SelectItem>
-                <SelectItem value="Experimental">Experimental</SelectItem>
-                <SelectItem value="Beta">Beta</SelectItem>
-                <SelectItem value="Stable">Stable</SelectItem>
-                <SelectItem value="Deprecated">Deprecated</SelectItem>
+                {uniqueLifecycles.map((lifecycle) => (
+                  <SelectItem key={lifecycle} value={lifecycle}>
+                    {lifecycle}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
+            
             <Select value={ownerFilter} onValueChange={setOwnerFilter}>
-              <SelectTrigger className="w-full sm:w-48">
-                <SelectValue placeholder="Filter by owner" />
+              <SelectTrigger className="w-full lg:w-48">
+                <SelectValue placeholder="Owner" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Owners</SelectItem>
                 {uniqueOwners.map((owner) => (
-                  <SelectItem key={owner} value={owner}>{owner}</SelectItem>
+                  <SelectItem key={owner} value={owner}>
+                    {owner}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -173,13 +258,14 @@ export default function PatternsPage() {
                 <ArrowUpDown className="w-4 h-4" />
               </SelectTrigger>
               <SelectContent align="end">
-                <SelectItem value="name-asc">A → Z</SelectItem>
+                <SelectItem value="name-asc">A → Z (default)</SelectItem>
                 <SelectItem value="name-desc">Z → A</SelectItem>
                 <SelectItem value="updated-desc">Recently Updated</SelectItem>
-                <SelectItem value="updated-asc">Oldest Updated</SelectItem>
+                <SelectItem value="usage-desc">Most Used</SelectItem>
               </SelectContent>
             </Select>
           </div>
+          
           {filteredPatterns.length === 0 && (
             <div className="text-center py-8">
               <p className="text-gray-500">No patterns match your current filters.</p>
@@ -187,56 +273,121 @@ export default function PatternsPage() {
           )}
         </div>
 
+        {/* Patterns Grid */}
         <div className="grid gap-6 md:grid-cols-2 px-6">
           {filteredPatterns.map((pattern) => (
-            <Card key={pattern.name} className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <pattern.icon className="w-5 h-5 text-blue-600" />
-                    </div>
-                    <div>
-                      <CardTitle className="text-lg">{pattern.name}</CardTitle>
-                      <CardDescription>{pattern.description}</CardDescription>
-                    </div>
-                  </div>
-                  <Badge className={getStatusColor(pattern.status)}>
-                    {pattern.status}
-                  </Badge>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-3">
-                  <div className="flex items-center gap-2 text-sm">
-                    <span className="font-medium">Owner:</span>
-                    <span className="text-gray-600">{pattern.owner}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm">
-                    <span className="font-medium">Last Updated:</span>
-                    <span className="text-gray-600">{new Date(pattern.lastUpdated).toLocaleDateString()}</span>
-                  </div>
-                </div>
-                <div>
-                  <h4 className="font-medium text-sm mb-2 text-gray-700">Examples:</h4>
-                  <div className="flex flex-wrap gap-1">
-                    {pattern.examples.map((example) => (
-                      <Badge key={example} variant="outline" className="text-xs">
-                        {example}
+            <Card key={pattern.name} className="h-full transition-all duration-300">
+              <div className="flex h-full">
+                {/* Main Content - Left Side */}
+                <div className="flex-1 flex flex-col">
+                  <CardHeader className="pb-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Badge variant="outline" className="text-xs text-slate-600 border-slate-300">
+                        Pattern
                       </Badge>
-                    ))}
-                  </div>
+                      <Badge className={getLifecycleColor(pattern.lifecycle)}>
+                        {pattern.lifecycle}
+                      </Badge>
+                      {pattern.usage && (
+                        <Badge variant="outline" className="text-xs text-slate-600 border-slate-300">{pattern.usage} Usage</Badge>
+                      )}
+                    </div>
+                    
+                    <div className="flex items-center gap-3 flex-wrap mb-2">
+                      <CardTitle className="text-xl">{pattern.name}</CardTitle>
+                    </div>
+                    <CardDescription className="text-sm">{pattern.description}</CardDescription>
+                  </CardHeader>
+                  
+                  <CardContent className="flex-1 pt-0">
+                    <div className="space-y-3">
+                      {/* Category */}
+                      <div className="text-sm flex items-center">
+                        <Tag className="w-4 h-4 text-gray-500 mr-2" />
+                        <span className="font-medium text-gray-700">Category:</span>
+                        <button 
+                          className="text-gray-600 ml-2 hover:text-blue-600 hover:underline transition-colors cursor-pointer"
+                          onClick={() => setCategoryFilter(pattern.category)}
+                        >
+                          {pattern.category}
+                        </button>
+                      </div>
+
+                      {/* Owner */}
+                      <div className="text-sm flex items-center">
+                        <Users className="w-4 h-4 text-gray-500 mr-2" />
+                        <span className="font-medium text-gray-700">Owner:</span>
+                        <button 
+                          className="text-gray-600 ml-2 hover:text-blue-600 hover:underline transition-colors cursor-pointer"
+                          onClick={() => setOwnerFilter(pattern.owner)}
+                        >
+                          {pattern.owner}
+                        </button>
+                      </div>
+
+                      <div className="text-sm flex items-center">
+                        <Clock className="w-4 h-4 text-gray-500 mr-2" />
+                        <span className="font-medium text-gray-700">Last Updated:</span>
+                        <button 
+                          className="text-gray-600 ml-2 hover:text-blue-600 hover:underline transition-colors cursor-pointer"
+                          onClick={() => setSortBy("updated-desc")}
+                        >
+                          {new Date(pattern.lastUpdated).toLocaleDateString()}
+                        </button>
+                      </div>
+
+                      {/* Examples */}
+                      {pattern.examples && (
+                        <div className="text-sm">
+                          <div className="flex items-center mb-2">
+                            <Puzzle className="w-4 h-4 text-gray-500 mr-2" />
+                            <span className="font-medium text-gray-700">Examples:</span>
+                          </div>
+                          <div className="flex flex-wrap gap-1 mt-2">
+                            {pattern.examples.map((example) => (
+                              <Badge key={example} variant="outline" className="text-xs text-slate-600 border-slate-300">
+                                {example}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </CardContent>
                 </div>
-                <Button variant="ghost" size="sm" asChild>
-                  <Link href={pattern.href}>
-                    View Pattern
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Link>
-                </Button>
-              </CardContent>
+
+                {/* CTAs - Right Side Vertical Stack */}
+                <div className="w-32 p-4 border-l border-gray-200 flex flex-col justify-center gap-4">
+                  <Button variant="outline" size="sm" asChild className="w-full text-xs">
+                    <a href={pattern.documentation} target="_blank" rel="noopener noreferrer">
+                      <FileText className="w-3 h-3 mr-1" />
+                      Docs
+                    </a>
+                  </Button>
+                  <Button variant="outline" size="sm" asChild className="w-full text-xs">
+                    <a href={pattern.storybook} target="_blank" rel="noopener noreferrer">
+                      <BookOpen className="w-3 h-3 mr-1" />
+                      Storybook
+                    </a>
+                  </Button>
+                  <Button variant="outline" size="sm" asChild className="w-full text-xs">
+                    <a href={pattern.figma} target="_blank" rel="noopener noreferrer">
+                      <Figma className="w-3 h-3 mr-1" />
+                      Figma
+                    </a>
+                  </Button>
+                  <Button variant="outline" size="sm" asChild className="w-full text-xs">
+                    <a href={pattern.github} target="_blank" rel="noopener noreferrer">
+                      <Github className="w-3 h-3 mr-1" />
+                      GitHub
+                    </a>
+                  </Button>
+                </div>
+              </div>
             </Card>
           ))}
         </div>
+
       </div>
     </LayoutWrapper>
   )
