@@ -23,6 +23,7 @@ import {
   PanelLeft,
   Heart,
   Play,
+  Settings,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -49,19 +50,7 @@ const navigationItems = [
       { href: "/foundations/shadows", label: "Shadows" },
     ],
   },
-  {
-    href: "/components",
-    label: "Components",
-    icon: Layers,
-    children: [
-      { href: "/components/lifecycle", label: "Component Lifecycle" },
-      { href: "/components/button", label: "Button" },
-      { href: "/components/data-table", label: "Data Table", badge: "New" },
-      { href: "/components/input", label: "Input" },
-      { href: "/components/modal", label: "Modal" },
-      { href: "/components/tooltip", label: "Tooltip" },
-    ],
-  },
+  { href: "/test", label: "Components", icon: Layers },
   {
     href: "/patterns",
     label: "Patterns",
@@ -74,7 +63,6 @@ const navigationItems = [
     ],
   },
   { href: "/releases", label: "Releases", icon: GitBranch },
-  { href: "/nextgen-recipes", label: "Community", icon: Users },
   { href: "/contribute", label: "Contribute", icon: Heart },
 ]
 
@@ -88,9 +76,7 @@ export function Navigation({ isCollapsed, setIsCollapsed }: NavigationProps) {
   const [searchQuery, setSearchQuery] = useState("")
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
     "/foundations": true,
-    "/components": true,
     "/patterns": true,
-    "/nextgen-recipes": true,
     "/get-started": true,
   })
   const pathname = usePathname()

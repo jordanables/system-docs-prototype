@@ -42,7 +42,7 @@ export default function HomePage() {
               </Link>
             </Button>
             <Button variant="outline" size="lg" asChild>
-              <Link href="/nextgen-recipes">Explore Community</Link>
+              <Link href="/test">Explore Components</Link>
             </Button>
           </div>
         </div>
@@ -88,10 +88,10 @@ export default function HomePage() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-gray-600 mb-4">
-                Explore our library of tested, accessible components with design guidelines and code examples.
+                Explore our complete library of platform components and community patterns with design guidelines and code examples.
               </p>
               <Button variant="ghost" size="sm" asChild>
-                <Link href="/components">
+                <Link href="/test">
                   Browse Components
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
