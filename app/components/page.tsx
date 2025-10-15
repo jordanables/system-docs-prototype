@@ -47,7 +47,7 @@ const components = [
     lifecycle: "Stable",
     category: "Overlays",
     owner: "Web Design Systems Team",
-    documentation: "https://confluence.procore.com/modal",
+    documentation: "https://core.procore.com/12.27.0/web/components/modal/react/",
     storybook: "https://stories.procore.com/modal",
     figma: "https://figma.com/procore-modal",
     github: "https://github.com/procore/design-system/modal",
