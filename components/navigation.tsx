@@ -50,7 +50,7 @@ const navigationItems = [
       { href: "/foundations/shadows", label: "Shadows" },
     ],
   },
-  { href: "/test", label: "Components", icon: Layers },
+  { href: "/components", label: "Components", icon: Layers },
   {
     href: "/patterns",
     label: "Patterns",

@@ -42,7 +42,7 @@ export default function HomePage() {
               </Link>
             </Button>
             <Button variant="outline" size="lg" asChild>
-              <Link href="/test">Explore Components</Link>
+              <Link href="/components">Explore Components</Link>
             </Button>
           </div>
         </div>
@@ -91,7 +91,7 @@ export default function HomePage() {
                 Explore our complete library of platform components and community patterns with design guidelines and code examples.
               </p>
               <Button variant="ghost" size="sm" asChild>
-                <Link href="/test">
+                <Link href="/components">
                   Browse Components
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
