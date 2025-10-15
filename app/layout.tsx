@@ -1,5 +1,6 @@
 import type React from "react"
 import { Inter, JetBrains_Mono } from "next/font/google"
+import { Analytics } from '@vercel/analytics/next'
 import "./globals.css"
 
 const inter = Inter({
@@ -21,7 +22,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}>
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        {children}
+        <Analytics />
+      </body>
     </html>
   )
 }
