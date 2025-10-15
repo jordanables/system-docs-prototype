@@ -1,0 +1,136 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+:root {
+  /* Updated to match Procore's actual brand colors from the image */
+  --procore-orange: #ff6b35;
+  --procore-slate: #475569;
+  --procore-dark-slate: #334155;
+  --procore-cream: #fef7f0;
+  --procore-gray-50: #f8fafc;
+  --procore-gray-100: #f1f5f9;
+  --procore-gray-200: #e2e8f0;
+  --procore-gray-300: #cbd5e1;
+  --procore-gray-400: #94a3b8;
+  --procore-gray-500: #64748b;
+  --procore-gray-600: #475569;
+  --procore-gray-700: #334155;
+  --procore-gray-800: #1e293b;
+  --procore-gray-900: #0f172a;
+
+  /* Updated design tokens to use cleaner, more professional colors */
+  --background: oklch(1 0 0); /* Pure white */
+  --foreground: oklch(0.145 0 0); /* Near black for text */
+  --card: oklch(1 0 0); /* White cards */
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.58 0.15 35); /* Procore orange */
+  --primary-foreground: oklch(1 0 0); /* White text on orange */
+  --secondary: oklch(0.98 0.005 85); /* Very light cream */
+  --secondary-foreground: oklch(0.145 0 0);
+  --muted: oklch(0.97 0 0); /* Light gray */
+  --muted-foreground: oklch(0.45 0 0); /* Medium gray text */
+  --accent: oklch(0.98 0.005 85); /* Light cream accent */
+  --accent-foreground: oklch(0.145 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.92 0 0); /* Light border */
+  --input: oklch(0.98 0 0); /* Very light input background */
+  --ring: oklch(0.58 0.15 35); /* Orange focus ring */
+  --chart-1: oklch(0.58 0.15 35); /* Procore orange */
+  --chart-2: oklch(0.45 0.05 220); /* Slate blue */
+  --chart-3: oklch(0.35 0.05 220); /* Dark slate */
+  --chart-4: oklch(0.75 0.1 85); /* Light cream */
+  --chart-5: oklch(0.65 0.08 60); /* Warm neutral */
+  --radius: 0.5rem;
+
+  /* Updated sidebar colors to match new scheme */
+  --sidebar: oklch(0.35 0.05 220); /* Dark slate sidebar */
+  --sidebar-foreground: oklch(0.95 0 0); /* Light text */
+  --sidebar-primary: oklch(0.58 0.15 35); /* Orange primary */
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.4 0.05 220); /* Slightly lighter slate */
+  --sidebar-accent-foreground: oklch(0.9 0 0);
+  --sidebar-border: oklch(0.4 0.05 220);
+  --sidebar-ring: oklch(0.58 0.15 35);
+}
+
+@theme inline {
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* Updated gradient to use new slate colors */
+.procore-gradient {
+  background: linear-gradient(135deg, var(--procore-slate) 0%, var(--procore-dark-slate) 100%);
+}
+
+.code-block {
+  background: var(--procore-gray-900);
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+/* Updated lifecycle badges to use more professional colors */
+.lifecycle-experimental {
+  @apply bg-amber-50 border-amber-200 text-amber-800;
+}
+
+.lifecycle-beta {
+  @apply bg-sky-50 border-sky-200 text-sky-800;
+}
+
+.lifecycle-stable {
+  @apply bg-emerald-50 border-emerald-200 text-emerald-800;
+}
+
+.lifecycle-deprecated {
+  @apply bg-rose-50 border-rose-200 text-rose-800;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
