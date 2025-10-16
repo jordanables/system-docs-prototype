@@ -32,13 +32,13 @@ const gettingStartedPaths = [
     icon: Palette,
     steps: [
       "Download Figma component library",
-      "Review design foundations",
+      "Review design primitives",
       "Use established patterns",
       "Follow accessibility guidelines"
     ],
     primaryAction: {
-      label: "Design Foundations",
-      href: "/foundations"
+      label: "Design Primitives",
+      href: "/primitives"
     },
     secondaryAction: {
       label: "Figma Library",

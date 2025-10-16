@@ -275,7 +275,7 @@ export default function InstallationGuidePage() {
               </Link>
             </Button>
             <Button variant="outline" asChild>
-              <Link href="/foundations">
+              <Link href="/primitives">
                 View Design Tokens
                 <Zap className="w-4 h-4 ml-2" />
               </Link>

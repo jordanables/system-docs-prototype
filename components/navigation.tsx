@@ -35,19 +35,20 @@ const navigationItems = [
     icon: Play,
     children: [
       { href: "/docs/installation", label: "Installation Guide" },
+      { href: "/get-started/component-lifecycle", label: "Component Lifecycle & Health" },
       { href: "/get-started/ai-prototyping", label: "AI Prototyping" },
     ],
   },
   { href: "/nextgen", label: "NextGen Enablement", icon: Zap, badge: "Silver" },
   {
-    href: "/foundations",
-    label: "Foundations",
+    href: "/primitives",
+    label: "Primitives",
     icon: BookOpen,
     children: [
-      { href: "/foundations/colors", label: "Colors" },
-      { href: "/foundations/typography", label: "Typography" },
-      { href: "/foundations/spacing", label: "Spacing" },
-      { href: "/foundations/shadows", label: "Shadows" },
+      { href: "/primitives/colors", label: "Colors" },
+      { href: "/primitives/typography", label: "Typography" },
+      { href: "/primitives/spacing", label: "Spacing" },
+      { href: "/primitives/shadows", label: "Shadows" },
     ],
   },
   { href: "/components", label: "Components", icon: Layers },
@@ -56,10 +57,16 @@ const navigationItems = [
     label: "Patterns",
     icon: Puzzle,
     children: [
-      { href: "/patterns/data-display", label: "Data Display" },
-      { href: "/patterns/feedback", label: "Feedback" },
-      { href: "/patterns/form-layouts", label: "Form Layouts" },
+      { href: "/patterns/empty-states", label: "Empty States" },
+      { href: "/patterns/feature-onboarding", label: "Feature Onboarding" },
+      { href: "/patterns/forms", label: "Forms" },
+      { href: "/patterns/loading", label: "Loading" },
       { href: "/patterns/navigation", label: "Navigation" },
+      { href: "/patterns/notification-messaging", label: "Notification Messaging" },
+      { href: "/patterns/progressive-disclosure", label: "Progressive Disclosure" },
+      { href: "/patterns/saving", label: "Saving" },
+      { href: "/patterns/feedback", label: "Feedback" },
+      { href: "/patterns/error-messaging", label: "Error Messaging" },
     ],
   },
   { href: "/releases", label: "Releases", icon: GitBranch },
@@ -75,7 +82,7 @@ export function Navigation({ isCollapsed, setIsCollapsed }: NavigationProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
-    "/foundations": true,
+    "/primitives": true,
     "/patterns": true,
     "/get-started": true,
   })

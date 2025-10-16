@@ -31,7 +31,7 @@ export default function HomePage() {
           </Link>
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Procore Design System</h1>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Your single source of truth for design foundations, components, and patterns. Empowering teams to build
+            Your single source of truth for design primitives, components, and patterns. Empowering teams to build
             consistent, accessible experiences across web and mobile platforms.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -56,7 +56,7 @@ export default function HomePage() {
                   <BookOpen className="w-5 h-5 text-green-600" />
                 </div>
                 <div>
-                  <CardTitle className="text-lg">Foundations</CardTitle>
+                  <CardTitle className="text-lg">Primitives</CardTitle>
                   <CardDescription>Design tokens and principles</CardDescription>
                 </div>
               </div>
@@ -66,8 +66,8 @@ export default function HomePage() {
                 Colors, typography, spacing, and other foundational elements that power our design system.
               </p>
               <Button variant="ghost" size="sm" asChild>
-                <Link href="/foundations">
-                  View Foundations
+                <Link href="/primitives">
+                  View Primitives
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
               </Button>
