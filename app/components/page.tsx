@@ -9,6 +9,7 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/h
 import { Clock, Users, AlertCircle, CheckCircle, XCircle, Github, Figma, BookOpen, FileText, Star, Search, ArrowUpDown, Tag, Grid } from "lucide-react"
 import { LayoutWrapper } from "@/components/layout-wrapper"
 import { useState, useMemo } from "react"
+import Link from "next/link"
 
 // Official Components Data
 const components = [
@@ -413,6 +414,7 @@ function scrollToComponent(componentName: string) {
 export default function TestPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [typeFilter, setTypeFilter] = useState("all")
+  const [recommendedFilter, setRecommendedFilter] = useState("all")
   const [categoryFilter, setCategoryFilter] = useState("all")
   const [statusFilter, setStatusFilter] = useState("all")
   const [healthFilter, setHealthFilter] = useState("all")
@@ -446,6 +448,8 @@ export default function TestPage() {
                           component.description.toLowerCase().includes(searchTerm.toLowerCase())
       
       const matchesType = typeFilter === "all" || component.type === typeFilter
+      const matchesRecommended = recommendedFilter === "all" || 
+        (recommendedFilter === "recommended" && component.recommended === true)
       const matchesCategory = categoryFilter === "all" || component.category === categoryFilter
       
       // Status filter - applies to platform components (lifecycle)
@@ -458,7 +462,7 @@ export default function TestPage() {
       
       const matchesOwner = ownerFilter === "all" || component.owner === ownerFilter
       
-      return matchesSearch && matchesType && matchesCategory && matchesStatus && matchesHealth && matchesOwner
+      return matchesSearch && matchesType && matchesRecommended && matchesCategory && matchesStatus && matchesHealth && matchesOwner
     })
 
     return filtered.sort((a, b) => {
@@ -489,7 +493,7 @@ export default function TestPage() {
           return a.name.localeCompare(b.name)
       }
     })
-  }, [searchTerm, typeFilter, categoryFilter, statusFilter, healthFilter, ownerFilter, sortBy])
+  }, [searchTerm, typeFilter, recommendedFilter, categoryFilter, statusFilter, healthFilter, ownerFilter, sortBy])
 
   const officialCount = filteredComponents.filter(c => c.type === "official").length
   const communityCount = filteredComponents.filter(c => c.type === "community").length
@@ -508,12 +512,12 @@ export default function TestPage() {
         {/* Banner */}
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mx-6">
           <h3 className="font-semibold text-blue-900 mb-2">Building something new?</h3>
-          <div className="flex items-start justify-between gap-6">
+          <div className="flex items-start justify-between gap-3">
             <p className="text-blue-800 flex-1">
-              If you are extending a system component or building something new consider contributing to our system community. These reusable components help bridge the gap between the system and specialized solution team needs.
+              If you are extending a system component or building something new consider contributing to the design system. Community supported reusable components help bridge the gap between the system and specialized solution team needs.
             </p>
-            <Button variant="outline" size="sm" className="shrink-0">
-              Support the Community
+            <Button variant="outline" size="sm" className="shrink-0" asChild>
+              <Link href="/contribute">Get Started</Link>
             </Button>
           </div>
         </div>
@@ -559,6 +563,16 @@ export default function TestPage() {
                 <SelectItem value="all">All Types</SelectItem>
                 <SelectItem value="official">Platform</SelectItem>
                 <SelectItem value="community">Community</SelectItem>
+              </SelectContent>
+            </Select>
+            
+            <Select value={recommendedFilter} onValueChange={setRecommendedFilter}>
+              <SelectTrigger className="w-full lg:w-40">
+                <SelectValue placeholder="Recommended" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All</SelectItem>
+                <SelectItem value="recommended">Recommended</SelectItem>
               </SelectContent>
             </Select>
             

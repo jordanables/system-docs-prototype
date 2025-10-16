@@ -552,10 +552,17 @@ export default function PatternsPage() {
 
                   {/* Single Learn More CTA */}
                   <Button variant="outline" size="sm" className="w-full mt-4 group-hover:bg-blue-50 group-hover:border-blue-200 transition-colors" asChild>
-                    <a href={pattern.documentation} target="_blank" rel="noopener noreferrer">
-                      Learn more
-                      <ArrowRight className="w-3 h-3 ml-1" />
-                    </a>
+                    {pattern.name === "Empty States" ? (
+                      <Link href="/patterns/empty-states">
+                        Learn more
+                        <ArrowRight className="w-3 h-3 ml-1" />
+                      </Link>
+                    ) : (
+                      <a href={pattern.documentation} target="_blank" rel="noopener noreferrer">
+                        Learn more
+                        <ArrowRight className="w-3 h-3 ml-1" />
+                      </a>
+                    )}
                   </Button>
                 </div>
               </CardContent>
