@@ -13,9 +13,9 @@ const nextgenResources = [
     color: "blue",
     items: [
       "Dashboard layouts with consistent navigation",
-      "Form patterns with proper validation",
+      "Form guidelines with proper validation",
       "Data table templates with sorting and filtering",
-      "Modal and dialog patterns",
+      "Modal and dialog guidelines",
     ],
     cta: "Browse Templates",
     href: "/nextgen/templates",
@@ -55,8 +55,8 @@ const certificationCriteria = [
     category: "Design Consistency",
     requirements: [
       "Use approved design tokens for colors, typography, and spacing",
-      "Implement consistent component patterns across all pages",
-      "Follow established layout and navigation patterns",
+      "Implement consistent component guidelines across all pages",
+      "Follow established layout and navigation guidelines",
       "Maintain visual hierarchy and information architecture",
     ],
     status: "required",
@@ -138,7 +138,7 @@ export default function NextGenPage() {
               <div>
                 <h3 className="font-medium text-gray-900 mb-1">Faster Development</h3>
                 <p className="text-sm text-gray-600">
-                  Reduce development time by 40% using pre-built components and patterns.
+                  Reduce development time by 40% using pre-built components and guidelines.
                 </p>
               </div>
             </div>

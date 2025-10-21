@@ -49,7 +49,7 @@ const releases = [
       new: [],
       enhancements: [
         "Improved color contrast ratios across all components",
-        "Enhanced keyboard navigation patterns",
+        "Enhanced keyboard navigation guidelines",
         "Optimized bundle size by 15%",
       ],
       fixes: [
@@ -68,7 +68,7 @@ const releases = [
     type: "minor",
     highlights: [
       "New Alert component variants",
-      "Enhanced form validation patterns",
+      "Enhanced form validation guidelines",
       "Mobile responsiveness improvements",
     ],
     changes: {

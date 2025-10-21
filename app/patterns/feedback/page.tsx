@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { ArrowLeft, MessageSquare, Bell, AlertTriangle, CheckCircle, Loader } from "lucide-react"
 import Link from "next/link"
 
-const feedbackPatterns = [
+const feedbackGuidelines = [
   {
     name: "Toast Notifications",
     description: "Temporary messages that appear to confirm actions or provide updates",
@@ -73,7 +73,7 @@ export default function FeedbackPage() {
             <Button variant="ghost" size="sm" asChild>
               <Link href="/patterns">
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Patterns
+                Back to UX Guidelines
               </Link>
             </Button>
           </div>
@@ -103,25 +103,25 @@ export default function FeedbackPage() {
           </div>
 
           <div className="grid gap-6 md:grid-cols-2">
-            {feedbackPatterns.map((pattern) => (
-              <Card key={pattern.name} className="hover:shadow-lg transition-shadow">
+            {feedbackGuidelines.map((guideline) => (
+              <Card key={guideline.name} className="hover:shadow-lg transition-shadow">
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
-                        <pattern.icon className="w-5 h-5 text-gray-600" />
+                        <guideline.icon className="w-5 h-5 text-gray-600" />
                       </div>
                       <div>
-                        <CardTitle className="text-lg">{pattern.name}</CardTitle>
-                        <CardDescription className="mt-2">{pattern.description}</CardDescription>
+                        <CardTitle className="text-lg">{guideline.name}</CardTitle>
+                        <CardDescription className="mt-2">{guideline.description}</CardDescription>
                       </div>
                     </div>
                     <div className="flex gap-2">
-                      <Badge className={getStatusColor(pattern.status)}>
-                        {pattern.status}
+                      <Badge className={getStatusColor(guideline.status)}>
+                        {guideline.status}
                       </Badge>
-                      <Badge className={getComplexityColor(pattern.complexity)}>
-                        {pattern.complexity}
+                      <Badge className={getComplexityColor(guideline.complexity)}>
+                        {guideline.complexity}
                       </Badge>
                     </div>
                   </div>
@@ -129,11 +129,11 @@ export default function FeedbackPage() {
                 <CardContent className="space-y-4">
                   <div>
                     <h4 className="font-medium text-sm mb-2 text-gray-700">Typical uses:</h4>
-                    <p className="text-sm text-gray-600">{pattern.usage}</p>
+                    <p className="text-sm text-gray-600">{guideline.usage}</p>
                   </div>
                   <div className="flex gap-2">
                     <Button variant="outline" size="sm">
-                      View Patterns
+                      View Guidelines
                     </Button>
                     <Button variant="outline" size="sm">
                       Best Practices

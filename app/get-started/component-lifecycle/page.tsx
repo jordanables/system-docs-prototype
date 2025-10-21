@@ -157,7 +157,7 @@ const decisionCriteria = [
     factors: [
       "Adoption by pilot teams",
       "User feedback and bug reports",
-      "Real-world usage patterns",
+      "Real-world usage data",
       "Community contributions and engagement"
     ]
   },

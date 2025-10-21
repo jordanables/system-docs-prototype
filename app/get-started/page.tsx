@@ -33,7 +33,7 @@ const gettingStartedPaths = [
     steps: [
       "Download Figma component library",
       "Review design primitives",
-      "Use established patterns",
+      "Use established guidelines",
       "Follow accessibility guidelines"
     ],
     primaryAction: {

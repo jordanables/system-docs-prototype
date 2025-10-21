@@ -106,18 +106,18 @@ export default function HomePage() {
                   <Puzzle className="w-5 h-5 text-purple-600" />
                 </div>
                 <div>
-                  <CardTitle className="text-lg">Patterns</CardTitle>
+                  <CardTitle className="text-lg">UX Guidelines</CardTitle>
                   <CardDescription>Reusable design solutions</CardDescription>
                 </div>
               </div>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-gray-600 mb-4">
-                Discover standardized patterns that solve common interface problems and maintain design consistency across applications.
+                Discover standardized guidelines that solve common interface problems and maintain design consistency across applications.
               </p>
               <Button variant="ghost" size="sm" asChild>
                 <Link href="/patterns">
-                  Explore Patterns
+                  Explore UX Guidelines
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
               </Button>

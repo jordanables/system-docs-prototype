@@ -35,8 +35,8 @@ const contributionTypes = [
     type: "Feature Requests",
     icon: Lightbulb,
     color: "blue",
-    description: "Suggest new components, patterns, or enhancements",
-    examples: ["New component proposals", "API improvements", "New design patterns"],
+    description: "Suggest new components, guidelines, or enhancements",
+    examples: ["New component proposals", "API improvements", "New UX guidelines"],
     process: "Submit RFC (Request for Comments) document",
     roles: ["product-managers", "designers", "developers"] as Role[],
     ctaText: "Submit Feature Request",
@@ -46,8 +46,8 @@ const contributionTypes = [
     type: "Design Contributions",
     icon: Palette,
     color: "purple",
-    description: "Contribute design assets, patterns, or visual improvements",
-    examples: ["Figma component updates", "Icon contributions", "Design pattern documentation"],
+    description: "Contribute design assets, guidelines, or visual improvements",
+    examples: ["Figma component updates", "Icon contributions", "UX guideline documentation"],
     process: "Design review with DS team",
     roles: ["designers"] as Role[],
     ctaText: "Contribute Design",
@@ -151,7 +151,7 @@ export default function ContributePage() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-600">
-                  Contribute design assets, patterns, accessibility improvements, and user experience enhancements.
+                  Contribute design assets, guidelines, accessibility improvements, and user experience enhancements.
                 </p>
               </CardContent>
             </Card>

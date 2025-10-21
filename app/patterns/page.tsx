@@ -10,11 +10,11 @@ import Link from "next/link"
 import { ArrowRight, Layout, Database, Navigation as NavigationIcon, MessageSquare, Puzzle, Search, ArrowUpDown, Tag, Users, Clock, Github, Figma, BookOpen, FileText, Star } from "lucide-react"
 import { useState, useMemo } from "react"
 
-const patterns = [
+const guidelines = [
   {
     name: "Empty States",
-    description: "Patterns for handling and displaying empty content areas gracefully",
-    type: "pattern",
+    description: "Guidelines for handling and displaying empty content areas gracefully",
+    type: "guideline",
     lifecycle: "Stable",
     category: "Content",
     owner: "Design Systems Team",
@@ -28,8 +28,8 @@ const patterns = [
   },
   {
     name: "Feature Onboarding",
-    description: "Guided patterns to introduce users to new features and functionality",
-    type: "pattern",
+    description: "Guided guidelines to introduce users to new features and functionality",
+    type: "guideline",
     lifecycle: "Beta",
     category: "Onboarding",
     owner: "UX Research Team",
@@ -43,8 +43,8 @@ const patterns = [
   },
   {
     name: "Forms",
-    description: "Comprehensive form patterns and validation guidelines for data collection",
-    type: "pattern",
+    description: "Comprehensive form guidelines and validation best practices for data collection",
+    type: "guideline",
     lifecycle: "Stable",
     category: "Forms",
     owner: "Design Systems Team",
@@ -60,7 +60,7 @@ const patterns = [
   {
     name: "Loading",
     description: "Loading states and progress indicators to communicate system activity",
-    type: "pattern",
+    type: "guideline",
     lifecycle: "Stable",
     category: "Feedback",
     owner: "Platform Team",
@@ -74,8 +74,8 @@ const patterns = [
   },
   {
     name: "Navigation",
-    description: "Navigation patterns for different application types and user flows",
-    type: "pattern",
+    description: "Navigation guidelines for different application types and user flows",
+    type: "guideline",
     lifecycle: "Stable",
     category: "Navigation",
     owner: "UX Research Team",
@@ -90,8 +90,8 @@ const patterns = [
   },
   {
     name: "Notification Messaging",
-    description: "System-to-user communication patterns for alerts, updates, and notifications",
-    type: "pattern",
+    description: "System-to-user communication guidelines for alerts, updates, and notifications",
+    type: "guideline",
     lifecycle: "Beta",
     category: "Communication",
     owner: "Design Systems Team",
@@ -106,8 +106,8 @@ const patterns = [
   },
   {
     name: "Progressive Disclosure",
-    description: "Patterns for revealing information and functionality progressively",
-    type: "pattern",
+    description: "Guidelines for revealing information and functionality progressively",
+    type: "guideline",
     lifecycle: "Beta",
     category: "Information Architecture",
     owner: "UX Research Team",
@@ -122,8 +122,8 @@ const patterns = [
   },
   {
     name: "Saving",
-    description: "Patterns for data persistence and save state communication",
-    type: "pattern",
+    description: "Guidelines for data persistence and save state communication",
+    type: "guideline",
     lifecycle: "Experimental",
     category: "Data Management",
     owner: "Platform Team",
@@ -137,8 +137,8 @@ const patterns = [
   },
   {
     name: "Feedback",
-    description: "User feedback patterns including ratings, reviews, and user input collection",
-    type: "pattern",
+    description: "User feedback guidelines including ratings, reviews, and user input collection",
+    type: "guideline",
     lifecycle: "Stable",
     category: "User Input",
     owner: "Design Systems Team",
@@ -148,12 +148,12 @@ const patterns = [
     storybook: "https://stories.procore.com/feedback",
     figma: "https://figma.com/procore-feedback",
     github: "https://github.com/procore/design-system/feedback",
-    examples: ["Star ratings", "Thumbs up/down", "Comment forms", "Survey patterns"]
+    examples: ["Star ratings", "Thumbs up/down", "Comment forms", "Survey forms"]
   },
   {
     name: "Error Messaging",
-    description: "Clear and actionable error communication patterns for system failures",
-    type: "pattern",
+    description: "Clear and actionable error communication guidelines for system failures",
+    type: "guideline",
     lifecycle: "Stable",
     category: "Error Handling",
     owner: "Design Systems Team",
@@ -182,7 +182,7 @@ const getLifecycleColor = (lifecycle: string) => {
   }
 }
 
-export default function PatternsPage() {
+export default function UXGuidelinesPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [categoryFilter, setCategoryFilter] = useState("all")
   const [lifecycleFilter, setLifecycleFilter] = useState("all")
@@ -191,31 +191,31 @@ export default function PatternsPage() {
 
   // Get unique values for filter options
   const uniqueCategories = useMemo(() => {
-    const categories = [...new Set(patterns.map(p => p.category))]
+    const categories = [...new Set(guidelines.map(g => g.category))]
     return categories.sort()
   }, [])
 
   const uniqueLifecycles = useMemo(() => {
-    const lifecycles = [...new Set(patterns.map(p => p.lifecycle))]
+    const lifecycles = [...new Set(guidelines.map(g => g.lifecycle))]
     return lifecycles.sort()
   }, [])
 
   const uniqueCertifications = useMemo(() => {
-    const certifications = [...new Set(patterns.filter(p => p.certification).map(p => p.certification))]
+    const certifications = [...new Set(guidelines.filter(g => g.certification).map(g => g.certification))]
     return certifications.sort((a, b) => {
       const order = ["NGX Silver", "NGX Gold", "NGX Platinum"]
       return order.indexOf(a) - order.indexOf(b)
     })
   }, [])
 
-  const filteredPatterns = useMemo(() => {
-    const filtered = patterns.filter((pattern) => {
-      const matchesSearch = pattern.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          pattern.description.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredGuidelines = useMemo(() => {
+    const filtered = guidelines.filter((guideline) => {
+      const matchesSearch = guideline.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          guideline.description.toLowerCase().includes(searchTerm.toLowerCase())
       
-      const matchesCategory = categoryFilter === "all" || pattern.category === categoryFilter
-      const matchesLifecycle = lifecycleFilter === "all" || pattern.lifecycle === lifecycleFilter
-      const matchesCertification = certificationFilter === "all" || pattern.certification === certificationFilter
+      const matchesCategory = categoryFilter === "all" || guideline.category === categoryFilter
+      const matchesLifecycle = lifecycleFilter === "all" || guideline.lifecycle === lifecycleFilter
+      const matchesCertification = certificationFilter === "all" || guideline.certification === certificationFilter
       
       return matchesSearch && matchesCategory && matchesLifecycle && matchesCertification
     })
@@ -230,9 +230,9 @@ export default function PatternsPage() {
           return new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime()
         case "usage-desc":
           // Sort by usage level
-          const getUsageRank = (pattern: any) => {
-            if (!pattern.usage) return 0
-            switch (pattern.usage.toLowerCase()) {
+          const getUsageRank = (guideline: any) => {
+            if (!guideline.usage) return 0
+            switch (guideline.usage.toLowerCase()) {
               case "high": return 4
               case "growing": return 3
               case "medium": return 2
@@ -255,22 +255,22 @@ export default function PatternsPage() {
       <div className="space-y-8">
         {/* Header */}
         <div className="px-6">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">Patterns</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">UX Guidelines</h1>
           <p className="text-lg text-gray-600">
-            Reusable design patterns that solve common interface problems and help maintain design system coherence across applications.
+            Reusable design guidelines that solve common interface problems and help maintain design system coherence across applications.
           </p>
         </div>
 
         {/* Banner */}
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mx-6">
-          <h3 className="font-semibold text-blue-900 mb-2">Need a New Pattern?</h3>
+          <h3 className="font-semibold text-blue-900 mb-2">Need a New Guideline?</h3>
           <div className="flex items-start justify-between gap-6">
             <p className="text-blue-800 flex-1">
-              If you've identified a recurring design problem that could benefit from a standardized pattern, 
-              we'd love to hear about it. Patterns help teams solve complex problems consistently.
+              If you've identified a recurring design problem that could benefit from standardized guidelines, 
+              we'd love to hear about it. UX guidelines help teams solve complex problems consistently.
             </p>
             <Button variant="outline" size="sm" className="shrink-0">
-              Propose New Pattern
+              Propose New Guideline
             </Button>
           </div>
         </div>
@@ -279,15 +279,15 @@ export default function PatternsPage() {
         <div className="px-6">
           <div className="grid grid-cols-3 gap-4 mb-6">
             <div className="bg-blue-50 p-4 rounded-lg text-center">
-              <div className="text-2xl font-bold text-blue-600">{patterns.length}</div>
-              <div className="text-sm text-blue-600">Total Patterns</div>
+              <div className="text-2xl font-bold text-blue-600">{guidelines.length}</div>
+              <div className="text-sm text-blue-600">Total Guidelines</div>
             </div>
             <div className="bg-purple-50 p-4 rounded-lg text-center">
-              <div className="text-2xl font-bold text-purple-600">{patterns.filter(p => p.lifecycle === "Stable").length}</div>
-              <div className="text-sm text-purple-600">Stable Patterns</div>
+              <div className="text-2xl font-bold text-purple-600">{guidelines.filter(g => g.lifecycle === "Stable").length}</div>
+              <div className="text-sm text-purple-600">Stable Guidelines</div>
             </div>
             <div className="bg-green-50 p-4 rounded-lg text-center">
-              <div className="text-2xl font-bold text-green-600">{filteredPatterns.length}</div>
+              <div className="text-2xl font-bold text-green-600">{filteredGuidelines.length}</div>
               <div className="text-sm text-green-600">Total Showing</div>
             </div>
           </div>
@@ -300,7 +300,7 @@ export default function PatternsPage() {
             <div className="relative w-full lg:w-80">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
               <Input
-                placeholder="Search patterns..."
+                placeholder="Search guidelines..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10"
@@ -363,20 +363,20 @@ export default function PatternsPage() {
             </Select>
           </div>
           
-          {filteredPatterns.length === 0 && (
+          {filteredGuidelines.length === 0 && (
             <div className="text-center py-8">
-              <p className="text-gray-500">No patterns match your current filters.</p>
+              <p className="text-gray-500">No guidelines match your current filters.</p>
             </div>
           )}
         </div>
 
-        {/* Patterns Grid */}
+        {/* Guidelines Grid */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 px-6">
-          {filteredPatterns.map((pattern) => (
-            <Card key={pattern.name} className="group hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden">
+          {filteredGuidelines.map((guideline) => (
+            <Card key={guideline.name} className="group hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden">
               {/* Visual Example Area */}
               <div className="h-48 bg-gradient-to-br from-gray-50 to-gray-100 border-b flex items-center justify-center relative overflow-hidden">
-                {pattern.name === "Empty States" && (
+                {guideline.name === "Empty States" && (
                   <div className="text-center space-y-3">
                     <div className="w-16 h-16 mx-auto bg-gray-200 rounded-lg flex items-center justify-center">
                       <Layout className="w-8 h-8 text-gray-400" />
@@ -387,7 +387,7 @@ export default function PatternsPage() {
                     </div>
                   </div>
                 )}
-                {pattern.name === "Feature Onboarding" && (
+                {guideline.name === "Feature Onboarding" && (
                   <div className="relative">
                     <div className="bg-white rounded-lg shadow-lg p-4 max-w-xs">
                       <div className="text-sm font-medium mb-2">✨ New Feature!</div>
@@ -400,7 +400,7 @@ export default function PatternsPage() {
                     <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-blue-500 rounded-full animate-pulse"></div>
                   </div>
                 )}
-                {pattern.name === "Forms" && (
+                {guideline.name === "Forms" && (
                   <div className="bg-white rounded-lg shadow-sm p-4 w-full max-w-xs space-y-3">
                     <div className="space-y-2">
                       <label className="text-xs font-medium text-gray-700">Name</label>
@@ -414,7 +414,7 @@ export default function PatternsPage() {
                     <Button size="sm" className="w-full text-xs">Submit</Button>
                   </div>
                 )}
-                {pattern.name === "Loading" && (
+                {guideline.name === "Loading" && (
                   <div className="space-y-4 w-full max-w-xs">
                     <div className="flex items-center space-x-2">
                       <div className="w-4 h-4 bg-blue-500 rounded-full animate-spin border-2 border-blue-500 border-t-transparent"></div>
@@ -427,7 +427,7 @@ export default function PatternsPage() {
                     </div>
                   </div>
                 )}
-                {pattern.name === "Navigation" && (
+                {guideline.name === "Navigation" && (
                   <div className="bg-white rounded-lg shadow-sm p-2 w-full max-w-xs">
                     <div className="flex space-x-1">
                       <div className="px-3 py-1 bg-blue-100 text-blue-700 rounded text-xs font-medium">Home</div>
@@ -437,7 +437,7 @@ export default function PatternsPage() {
                     </div>
                   </div>
                 )}
-                {pattern.name === "Notification Messaging" && (
+                {guideline.name === "Notification Messaging" && (
                   <div className="bg-green-50 border border-green-200 rounded-lg p-3 max-w-xs">
                     <div className="flex items-start space-x-2">
                       <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
@@ -450,7 +450,7 @@ export default function PatternsPage() {
                     </div>
                   </div>
                 )}
-                {pattern.name === "Progressive Disclosure" && (
+                {guideline.name === "Progressive Disclosure" && (
                   <div className="bg-white rounded-lg shadow-sm p-3 w-full max-w-xs space-y-2">
                     <div className="flex items-center justify-between">
                       <div className="text-sm font-medium">Advanced Options</div>
@@ -462,7 +462,7 @@ export default function PatternsPage() {
                     </div>
                   </div>
                 )}
-                {pattern.name === "Saving" && (
+                {guideline.name === "Saving" && (
                   <div className="bg-white rounded-lg shadow-sm p-3 max-w-xs">
                     <div className="flex items-center space-x-2 mb-2">
                       <div className="w-4 h-4 bg-orange-500 rounded-full animate-pulse"></div>
@@ -471,7 +471,7 @@ export default function PatternsPage() {
                     <div className="text-xs text-gray-400">All changes are automatically saved</div>
                   </div>
                 )}
-                {pattern.name === "Feedback" && (
+                {guideline.name === "Feedback" && (
                   <div className="bg-white rounded-lg shadow-sm p-3 max-w-xs text-center space-y-2">
                     <div className="text-sm font-medium">How was your experience?</div>
                     <div className="flex justify-center space-x-1">
@@ -483,7 +483,7 @@ export default function PatternsPage() {
                     </div>
                   </div>
                 )}
-                {pattern.name === "Error Messaging" && (
+                {guideline.name === "Error Messaging" && (
                   <div className="bg-red-50 border border-red-200 rounded-lg p-3 max-w-xs">
                     <div className="flex items-start space-x-2">
                       <div className="w-5 h-5 bg-red-500 rounded-full flex items-center justify-center">
@@ -501,38 +501,38 @@ export default function PatternsPage() {
               <CardContent className="p-6">
                 <div className="space-y-3">
                   {/* NextGen Certification tag */}
-                  {pattern.certification && (
+                  {guideline.certification && (
                     <div className="flex items-center">
                       <Badge variant="default" className="bg-orange-500 hover:bg-orange-600 text-white">
                         <Star className="w-3 h-3 mr-1 fill-current" />
-                        {pattern.certification}
+                        {guideline.certification}
                       </Badge>
                     </div>
                   )}
 
                   <div>
                     <div className="flex items-center gap-2 mb-2">
-                      <CardTitle className="text-lg">{pattern.name}</CardTitle>
-                      <Badge className={getLifecycleColor(pattern.lifecycle)} variant="secondary">
-                        {pattern.lifecycle}
+                      <CardTitle className="text-lg">{guideline.name}</CardTitle>
+                      <Badge className={getLifecycleColor(guideline.lifecycle)} variant="secondary">
+                        {guideline.lifecycle}
                       </Badge>
                     </div>
                     <CardDescription className="text-sm text-gray-600 leading-relaxed">
-                      {pattern.description}
+                      {guideline.description}
                     </CardDescription>
                   </div>
 
                   {/* Examples as tags */}
-                  {pattern.examples && (
+                  {guideline.examples && (
                     <div className="flex flex-wrap gap-1">
-                      {pattern.examples.slice(0, 3).map((example) => (
+                      {guideline.examples.slice(0, 3).map((example) => (
                         <Badge key={example} variant="outline" className="text-xs text-gray-500 border-gray-200">
                           {example}
                         </Badge>
                       ))}
-                      {pattern.examples.length > 3 && (
+                      {guideline.examples.length > 3 && (
                         <Badge variant="outline" className="text-xs text-gray-400 border-gray-200">
-                          +{pattern.examples.length - 3} more
+                          +{guideline.examples.length - 3} more
                         </Badge>
                       )}
                     </div>
@@ -542,23 +542,23 @@ export default function PatternsPage() {
                   <div className="text-xs text-gray-500 space-y-1 pt-2 border-t">
                     <div className="flex items-center">
                       <Tag className="w-3 h-3 text-gray-400 mr-1.5" />
-                      Category: <span className="font-medium ml-1">{pattern.category}</span>
+                      Category: <span className="font-medium ml-1">{guideline.category}</span>
                     </div>
                     <div className="flex items-center">
                       <Clock className="w-3 h-3 text-gray-400 mr-1.5" />
-                      Last Updated: <span className="font-medium ml-1">{new Date(pattern.lastUpdated).toLocaleDateString()}</span>
+                      Last Updated: <span className="font-medium ml-1">{new Date(guideline.lastUpdated).toLocaleDateString()}</span>
                     </div>
                   </div>
 
                   {/* Single Learn More CTA */}
                   <Button variant="outline" size="sm" className="w-full mt-4 group-hover:bg-blue-50 group-hover:border-blue-200 transition-colors" asChild>
-                    {pattern.name === "Empty States" ? (
+                    {guideline.name === "Empty States" ? (
                       <Link href="/patterns/empty-states">
                         Learn more
                         <ArrowRight className="w-3 h-3 ml-1" />
                       </Link>
                     ) : (
-                      <a href={pattern.documentation} target="_blank" rel="noopener noreferrer">
+                      <a href={guideline.documentation} target="_blank" rel="noopener noreferrer">
                         Learn more
                         <ArrowRight className="w-3 h-3 ml-1" />
                       </a>

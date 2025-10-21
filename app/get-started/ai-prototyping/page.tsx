@@ -18,7 +18,7 @@ const aiTools = [
       "Generating boilerplate code quickly",
       "Exploring design variations",
       "Creating MVP interfaces fast",
-      "Learning React patterns"
+      "Learning React best practices"
     ],
     whenNotToUse: [
       "Production-ready applications",

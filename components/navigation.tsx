@@ -54,7 +54,7 @@ const navigationItems = [
   { href: "/components", label: "Components", icon: Layers },
   {
     href: "/patterns",
-    label: "Patterns",
+    label: "UX Guidelines",
     icon: Puzzle,
     children: [
       { href: "/patterns/empty-states", label: "Empty States" },

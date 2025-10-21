@@ -132,7 +132,7 @@ export default function EmptyStatesGuidelinesPage() {
             <Button variant="ghost" size="sm" asChild>
               <Link href="/patterns">
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Patterns
+                Back to UX Guidelines
               </Link>
             </Button>
           </div>
@@ -338,7 +338,7 @@ export default function EmptyStatesGuidelinesPage() {
               
               <div className="flex gap-4">
                 <Button variant="outline" asChild>
-                  <Link href="/patterns">View All Patterns</Link>
+                  <Link href="/patterns">View All Guidelines</Link>
                 </Button>
                 <Button variant="outline" asChild>
                   <Link href="/components">Browse Components</Link>
