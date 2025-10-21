@@ -42,7 +42,7 @@ export default function HomePage() {
               </Link>
             </Button>
             <Button variant="outline" size="lg" asChild>
-              <Link href="/components">Explore Components</Link>
+              <Link href="/components">Explore UI Components</Link>
             </Button>
           </div>
         </div>
@@ -81,7 +81,7 @@ export default function HomePage() {
                   <Layers className="w-5 h-5 text-blue-600" />
                 </div>
                 <div>
-                  <CardTitle className="text-lg">Components</CardTitle>
+                  <CardTitle className="text-lg">UI Components</CardTitle>
                   <CardDescription>Ready-to-use UI components</CardDescription>
                 </div>
               </div>
@@ -92,7 +92,7 @@ export default function HomePage() {
               </p>
               <Button variant="ghost" size="sm" asChild>
                 <Link href="/components">
-                  Browse Components
+                  Browse UI Components
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>
               </Button>

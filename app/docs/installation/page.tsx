@@ -61,7 +61,7 @@ const installationSteps = [
     note: "Base styles include CSS reset, typography, and component styles."
   },
   {
-    title: "Start Using Components",
+    title: "Start Using UI Components",
     description: "Import and use design system components",
     commands: [
       "import { Button, Card, Input } from '@procore/design-system';",
@@ -270,7 +270,7 @@ export default function InstallationGuidePage() {
           <div className="flex flex-col sm:flex-row gap-4">
             <Button asChild>
               <Link href="/components">
-                Browse Components
+                Browse UI Components
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </Button>

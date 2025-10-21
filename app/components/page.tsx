@@ -11,12 +11,12 @@ import { LayoutWrapper } from "@/components/layout-wrapper"
 import { useState, useMemo } from "react"
 import Link from "next/link"
 
-// Official Components Data
+// Procore Platform & 3rd Party Components Data
 const components = [
   {
     name: "Button",
     description: "Clickable elements for user actions",
-    type: "official",
+    type: "thirdparty",
     lifecycle: "Stable",
     category: "Actions",
     owner: "Web Design Systems Team",
@@ -30,7 +30,7 @@ const components = [
   {
     name: "Input",
     description: "Text input fields for forms",
-    type: "official",
+    type: "thirdparty",
     lifecycle: "Stable",
     category: "Forms",
     owner: "Web Design Systems Team",
@@ -44,7 +44,7 @@ const components = [
   {
     name: "Modal",
     description: "Overlay dialogs for focused interactions",
-    type: "official",
+    type: "thirdparty",
     lifecycle: "Stable",
     category: "Overlays",
     owner: "Web Design Systems Team",
@@ -272,7 +272,7 @@ const components = [
   },
 ]
 
-// Community Components Data
+// Procore Solutions Components Data
 const communityComponents = [
   {
     name: "Error Pages",
@@ -497,13 +497,14 @@ export default function TestPage() {
 
   const officialCount = filteredComponents.filter(c => c.type === "official").length
   const communityCount = filteredComponents.filter(c => c.type === "community").length
+  const thirdpartyCount = filteredComponents.filter(c => c.type === "thirdparty").length
 
   return (
     <LayoutWrapper>
       <div className="space-y-8">
         {/* Header */}
         <div className="px-6">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">Components</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">UI Components</h1>
           <p className="text-lg text-gray-600">
             Chad-CN is a collection of UI components found in global and local design systems across P&T.
           </p>
@@ -524,14 +525,18 @@ export default function TestPage() {
 
         {/* Stats */}
         <div className="px-6">
-          <div className="grid grid-cols-3 gap-4 mb-6">
-            <div className="bg-blue-50 p-4 rounded-lg text-center">
-              <div className="text-2xl font-bold text-blue-600">{officialCount}</div>
-              <div className="text-sm text-blue-600">Platform Components</div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div className="bg-orange-50 p-4 rounded-lg text-center">
+              <div className="text-2xl font-bold text-orange-600">{officialCount}</div>
+              <div className="text-sm text-orange-600">Procore Platform</div>
             </div>
             <div className="bg-purple-50 p-4 rounded-lg text-center">
               <div className="text-2xl font-bold text-purple-600">{communityCount}</div>
-              <div className="text-sm text-purple-600">Community Components</div>
+              <div className="text-sm text-purple-600">Procore Solutions</div>
+            </div>
+            <div className="bg-blue-50 p-4 rounded-lg text-center">
+              <div className="text-2xl font-bold text-blue-600">{thirdpartyCount}</div>
+              <div className="text-sm text-blue-600">3rd Party</div>
             </div>
             <div className="bg-green-50 p-4 rounded-lg text-center">
               <div className="text-2xl font-bold text-green-600">{filteredComponents.length}</div>
@@ -556,13 +561,14 @@ export default function TestPage() {
             
             {/* Filters - reordered: types, categories, owners */}
             <Select value={typeFilter} onValueChange={setTypeFilter}>
-              <SelectTrigger className="w-full lg:w-40">
+              <SelectTrigger className="w-full lg:w-48">
                 <SelectValue placeholder="Type" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Types</SelectItem>
-                <SelectItem value="official">Platform</SelectItem>
-                <SelectItem value="community">Community</SelectItem>
+                <SelectItem value="official">Procore Platform</SelectItem>
+                <SelectItem value="community">Procore Solutions</SelectItem>
+                <SelectItem value="thirdparty">3rd Party</SelectItem>
               </SelectContent>
             </Select>
             
@@ -661,8 +667,15 @@ export default function TestPage() {
                 <div className="flex-1 flex flex-col">
                   <CardHeader className="pb-4">
                     <div className="flex items-center gap-2 mb-2">
-                      <Badge variant={component.type === "official" ? "outline" : "secondary"} className={component.type === "official" ? "bg-gray-100 text-gray-700 border-gray-300" : ""}>
-                        {component.type === "official" ? "Platform" : "Community"}
+                      <Badge 
+                        variant={component.type === "official" ? "outline" : component.type === "thirdparty" ? "outline" : "secondary"} 
+                        className={
+                          component.type === "official" ? "bg-orange-100 text-orange-700 border-orange-300" : 
+                          component.type === "thirdparty" ? "bg-blue-100 text-blue-700 border-blue-300" : 
+                          ""
+                        }
+                      >
+                        {component.type === "official" ? "Procore Platform" : component.type === "thirdparty" ? "3rd Party" : "Procore Solutions"}
                       </Badge>
                       {component.endorsed && (
                         <Badge variant="default" className="bg-orange-500 hover:bg-orange-600 text-white">
@@ -678,14 +691,14 @@ export default function TestPage() {
                     <div className="flex items-center gap-3 flex-wrap mb-2">
                       <CardTitle className="text-xl">{component.name}</CardTitle>
                       <div className="flex items-center gap-2">
-                        {/* Official components show lifecycle */}
-                        {component.type === "official" && (
+                        {/* Platform and 3rd Party components show lifecycle */}
+                        {(component.type === "official" || component.type === "thirdparty") && (
                           <Badge className={getLifecycleColor(component.lifecycle)}>
                             {component.lifecycle}
                           </Badge>
                         )}
                         
-                        {/* Community components show health */}
+                        {/* Procore Solutions components show health */}
                         {component.type === "community" && (
                           <>
                             <HoverCard>
@@ -737,7 +750,7 @@ export default function TestPage() {
                         <span className="text-gray-600 ml-2">{new Date(component.lastUpdated).toLocaleDateString()}</span>
                       </div>
 
-                      {/* Community-specific components info - moved to bottom */}
+                      {/* Procore Solutions-specific components info - moved to bottom */}
                       {component.type === "community" && (
                         <div className="text-sm">
                           <div className="flex items-center mb-2">

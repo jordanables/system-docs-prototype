@@ -341,7 +341,7 @@ export default function EmptyStatesGuidelinesPage() {
                   <Link href="/patterns">View All Guidelines</Link>
                 </Button>
                 <Button variant="outline" asChild>
-                  <Link href="/components">Browse Components</Link>
+                  <Link href="/components">Browse UI Components</Link>
                 </Button>
               </div>
             </CardContent>

@@ -66,7 +66,7 @@ const lifecycleStages = [
     stage: "Deprecated",
     color: "bg-red-100 text-red-800 border-red-300",
     icon: XCircle,
-    description: "Components being phased out in favor of better alternatives",
+    description: "UI components being phased out in favor of better alternatives",
     characteristics: [
       "No new features or enhancements",
       "Bug fixes for critical issues only",
@@ -332,7 +332,7 @@ export default function ComponentLifecyclePage() {
           <div className="mt-8">
             <h3 className="text-xl font-bold text-gray-900 mb-4">Promotion Criteria</h3>
             <p className="text-gray-600 mb-6">
-              Components advance through lifecycle stages based on these key factors:
+              UI components advance through lifecycle stages based on these key factors:
             </p>
             <div className="grid gap-6 md:grid-cols-2">
               {decisionCriteria.map((criteria) => (

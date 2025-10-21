@@ -51,7 +51,7 @@ const navigationItems = [
       { href: "/primitives/shadows", label: "Shadows" },
     ],
   },
-  { href: "/components", label: "Components", icon: Layers },
+  { href: "/components", label: "UI Components", icon: Layers },
   {
     href: "/patterns",
     label: "UX Guidelines",

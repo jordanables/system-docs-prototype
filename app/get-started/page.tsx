@@ -17,7 +17,7 @@ const gettingStartedPaths = [
       "Build your first feature"
     ],
     primaryAction: {
-      label: "View Components",
+      label: "View UI Components",
       href: "/components"
     },
     secondaryAction: {
